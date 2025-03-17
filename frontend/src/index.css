@@ -1,0 +1,336 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: #cc548c;
+    --primary-foreground: 0 0% 98%;
+    --secondary: #e29d7b;
+    --base100: #fff;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: #031a2f;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: #cc548c;
+    --primary-foreground: 0 0% 9%;
+    --secondary: #e29d7b;
+    --base100: #111;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: #031a2f;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.container {
+  max-width: 96% !important;
+  margin: auto;
+}
+
+@media only screen and (min-width: 1280px) {
+  .container {
+    max-width: 1200px !important;
+  }
+}
+
+.active {
+  color: var(--primary);
+}
+
+.shadow {
+  box-shadow: 0 20px 27px 0px #0000000d !important;
+}
+.shadow-lg {
+  box-shadow: 3px -2px 20px 0px #0000000c, 0px 4px 20px 0px #0000000c !important;
+}
+
+.primary_btn {
+  background: var(--primary);
+  color: var(--base100);
+  padding: 7px 20px;
+  border-radius: 4px;
+  border: 1px solid var(--primary);
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.primary_btn:hover {
+  color: var(--primary);
+  background: transparent;
+}
+
+.form_group label {
+  color: #444;
+  font-size: 15px;
+}
+
+.form_group input,
+.form_group textarea,
+.form_group select {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px 6px;
+  outline: none;
+  font-size: 15px;
+  margin-top: 3px;
+  color: #333;
+}
+
+.no-focus:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.grayscale {
+  --tw-grayscale: grayscale(100%);
+}
+
+.feature_category_card {
+  @apply flex items-center justify-center rounded-lg bg-gray-100 p-4 text-center text-neutral duration-300 hover:text-primary font-medium;
+}
+
+.feature_category_card img {
+  transition: all 0.3s ease;
+}
+
+.feature_category_card:hover .grayscale {
+  --tw-grayscale: grayscale(0%);
+}
+
+table {
+  width: 100%;
+  font-size: 15px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+table thead th {
+  background: #dddddd94;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #404145e6;
+  text-transform: uppercase;
+  text-align: start;
+  white-space: nowrap;
+}
+
+table tbody td {
+  padding: 10px;
+  text-align: start;
+  border-bottom: 1px solid #dddddd94;
+}
+
+table tfoot tr {
+  border-bottom: 1px solid #dddddd94;
+}
+
+table tfoot tr td {
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  text-transform: uppercase;
+  text-align: start;
+  white-space: nowrap;
+}
+
+table tfoot tr th {
+  padding: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #222;
+  text-transform: uppercase;
+  text-align: start;
+  white-space: nowrap;
+}
+
+table tfoot tr:last-child {
+  border-bottom: none;
+}
+
+/* ---------------Shop page -------------------*/
+.shop_categories {
+  width: 300px;
+  background: var(--base100);
+  border-radius: 5px;
+  padding: 6px;
+  position: sticky;
+  top: 65px;
+  align-self: self-start;
+}
+
+.shop_products {
+  width: calc(100% - 300px);
+  background: var(--base100);
+  border-radius: 5px;
+  padding: 6px;
+}
+
+.shop_categories ul li a {
+  color: #404145e4;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.shop_categories ul li a:hover {
+  background: #dddddd32;
+  color: var(--primary);
+}
+
+@media only screen and (max-width: 768px) {
+  .shop_products {
+    width: 100%;
+  }
+}
+
+/* --------------------------------- */
+
+.overlay {
+  position: fixed;
+  top: -33px;
+  left: 0;
+  background: #00000066;
+  width: 100%;
+  height: 110vh;
+  z-index: 9999;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: all 0.3s ease;
+}
+
+.overlay_show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.account_sidebar {
+  width: 290px;
+  background: var(--base100);
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: 2px 2px 10px #ddd;
+}
+
+.account_sidebar_show {
+  transform: translateX(0%) !important;
+}
+
+@media only screen and (max-width: 400px) {
+  .menu_wrap {
+    width: 90% !important;
+  }
+
+  .account_sidebar {
+    width: 90% !important;
+    transform: translateX(-120%);
+    transition: all 0.3s ease;
+  }
+
+  .admin_sidebar {
+    width: 90% !important;
+  }
+
+  .serach_sidebar {
+    width: 90% !important;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .account_sidebar {
+    width: 90% !important;
+    transform: translateX(-120%);
+    transition: all 0.3s ease;
+  }
+
+  .menu_wrap {
+    position: fixed;
+    top: -33px;
+    left: 0;
+    width: 300px;
+    height: 110vh;
+    z-index: 9999;
+    background: var(--base100);
+    box-shadow: 3px -2px 20px 0px #0000000c, 0px 4px 20px 0px #0000000c;
+
+    transition: all 0.3s ease;
+    transform: translateX(-100%);
+  }
+
+  .menu_wrap_show {
+    transform: translateX(0%) !important;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .overlay,
+  .menu_wrap {
+    top: 0;
+    height: 100vh;
+  }
+}
