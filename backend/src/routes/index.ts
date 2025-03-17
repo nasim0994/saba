@@ -6,6 +6,7 @@ import { adminRoute } from '../modules/admin/adminRoute';
 import { CategoryRoute } from '../modules/category/categoryRoute';
 import { subCategoryRoute } from '../modules/subCategory/subCategoryRoute';
 import { subSubCategoryRoute } from '../modules/subSubCategory/subSubCategoryRoute';
+import { brandRoute } from '../modules/brand/brandRoute';
 
 const moduleRoutes = [
   {
@@ -31,6 +32,10 @@ const moduleRoutes = [
   {
     path: '/sub-sub-category',
     route: subSubCategoryRoute,
+  },
+  {
+    path: '/brand',
+    route: brandRoute,
   },
 ];
 
