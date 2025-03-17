@@ -7,6 +7,7 @@ import { RxDashboard } from "react-icons/rx";
 import { BsSearch } from "react-icons/bs";
 import { useAppDispatch, useAppSelector } from "@/redux/hook/hooks";
 import { userLogout } from "@/redux/features/user/authSlice";
+import Search from "./Search";
 
 export default function MainHeader() {
   const [searchSidebar, setSearchSidebar] = useState(false);
@@ -28,7 +29,7 @@ export default function MainHeader() {
   }, []);
 
   return (
-    <div className="bg-secondary py-2 text-base-100">
+    <div className="bg-base-100 py-2 text-neutral shadow-md">
       <div className="container">
         <div className="flex items-center justify-between gap-2">
           <div>
@@ -36,7 +37,7 @@ export default function MainHeader() {
               <img
                 src="/images/logo.png"
                 alt="logo"
-                className="w-40 sm:w-48"
+                className="w-28 sm:w-32"
                 loading="lazy"
               />
             </Link>
@@ -51,9 +52,9 @@ export default function MainHeader() {
             </button>
           </div>
 
-          <div className="hidden w-1/2 md:block">{/* <SearchBox /> */}</div>
-
           <div className="hidden items-center gap-3 md:flex lg:gap-8">
+            <Search />
+
             <Link to="/cart" className="flex items-center gap-2.5">
               <i>
                 <FiShoppingCart className="text-2xl text-primary" />
