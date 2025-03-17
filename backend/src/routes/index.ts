@@ -4,6 +4,8 @@ import { authRoute } from '../modules/auth/authRoute';
 import { userRoute } from '../modules/user/userRoute';
 import { adminRoute } from '../modules/admin/adminRoute';
 import { CategoryRoute } from '../modules/category/categoryRoute';
+import { subCategoryRoute } from '../modules/subCategory/subCategoryRoute';
+import { subSubCategoryRoute } from '../modules/subSubCategory/subSubCategoryRoute';
 
 const moduleRoutes = [
   {
@@ -21,6 +23,14 @@ const moduleRoutes = [
   {
     path: '/category',
     route: CategoryRoute,
+  },
+  {
+    path: '/sub-category',
+    route: subCategoryRoute,
+  },
+  {
+    path: '/sub-sub-category',
+    route: subSubCategoryRoute,
   },
 ];
 
