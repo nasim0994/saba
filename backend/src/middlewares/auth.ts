@@ -30,10 +30,10 @@ export const auth = (...requiredRoles: string[]) => {
       );
     }
 
-    const { role, email } = decoded;
+    const { role, phone } = decoded;
 
     // checking if the user is exist
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ phone });
 
     if (!user) {
       throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');

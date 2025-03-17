@@ -1,4 +1,5 @@
 import Spinner from "@/components/skeleton/Spinner";
+import { TResponse } from "@/interface/globalInterface";
 import {
   useGetCategoryQuery,
   useUpdateCategoryMutation,
@@ -28,19 +29,26 @@ export default function EditCategory() {
     const name = target.get("name") as string;
     const order = target.get("order") as string;
 
+    const info = {
+      name,
+      order: Number(order),
+    };
+
     // check if icon and icon size
     if (icons?.length > 0 && icon && icon.size > 1024 * 1024)
       return toast.error("Image size is too large");
 
     const formData = new FormData();
-    formData.append("name", name);
-    formData.append("order", order);
-    if (icons?.length > 0) formData.append("icon", icon as File);
+    formData.append("data", JSON.stringify(info));
+    if (icons?.length > 0) formData.append("image", icon as File);
 
-    const res = await updateCategory({ id, formData });
+    const res = (await updateCategory({ id, formData })) as TResponse;
     if (res?.data?.success) {
       toast.success("Category updated successfully");
       navigate("/admin/product/category/all");
+    } else {
+      toast.error(res?.error?.data?.message || "Failed to update category");
+      console.log(res);
     }
   };
 
@@ -49,7 +57,7 @@ export default function EditCategory() {
   return (
     <form
       onSubmit={handleUpdateCategory}
-      className="rounded bg-base-100 p-4 shadow sm:w-1/2"
+      className="rounded bg-base-100 p-4 shadow form_group"
     >
       <div>
         <p>Icon</p>
@@ -77,10 +85,10 @@ export default function EditCategory() {
 
                 {icons?.length <= 0 && category?.icon && (
                   <img
-                    src={`${import.meta.env.VITE_BACKEND_URL}/categories/${
+                    src={`${import.meta.env.VITE_BACKEND_URL}/${
                       category?.icon
                     }`}
-                    alt=""
+                    alt={category?.name}
                     className="mt-4 w-32"
                   />
                 )}
@@ -103,20 +111,22 @@ export default function EditCategory() {
           </ImageUploading>
 
           <img
-            src={`${import.meta.env.VITE_BACKEND_URL}/${category?.icon}`}
-            alt=""
+            src={`${import.meta.env.VITE_BACKEND_URL}/${category?.image}`}
+            alt={category?.name}
             className="h-14 w-14 rounded-full border"
           />
         </div>
       </div>
 
-      <div className="form_group mt-2">
-        <p>Category name</p>
-        <input type="text" name="name" defaultValue={category?.name} />
-      </div>
-      <div className="form_group mt-2">
-        <p>Category Order</p>
-        <input type="number" name="order" defaultValue={category?.order} />
+      <div className="grid sm:grid-cols-2 gap-4">
+        <div className="mt-2">
+          <label>Category name</label>
+          <input type="text" name="name" defaultValue={category?.name} />
+        </div>
+        <div className="mt-2">
+          <label>Category Order</label>
+          <input type="number" name="order" defaultValue={category?.order} />
+        </div>
       </div>
 
       <div className="mt-4">

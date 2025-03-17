@@ -1,3 +1,4 @@
+import { TResponse } from "@/interface/globalInterface";
 import {
   useAddCategoryMutation,
   useGetCategoriesQuery,
@@ -39,19 +40,23 @@ export default function AddCategory() {
       return toast.error("Category name is required");
     }
 
-    const formData = new FormData();
-    formData.append("icon", icon);
-    formData.append("name", name);
-    formData.append("order", order);
+    const info = {
+      name,
+      order: Number(order),
+    };
 
-    const res = await addCategory(formData);
+    const formData = new FormData();
+    formData.append("image", icon);
+    formData.append("data", JSON.stringify(info));
+
+    const res = (await addCategory(formData)) as TResponse;
 
     if (res?.data?.success) {
       toast.success("Category added successfully");
       setIcons([]);
       navigate("/admin/product/category/all");
     } else {
-      toast.error(res?.data?.message || "Failed to add category");
+      toast.error(res?.error?.data?.message || "Failed to add category");
       console.log(res);
     }
   };
@@ -59,7 +64,7 @@ export default function AddCategory() {
   return (
     <form
       onSubmit={handleAddCategory}
-      className="rounded bg-base-100 p-4 shadow sm:w-1/2"
+      className="rounded bg-base-100 p-4 shadow form_group"
     >
       <div>
         <p className="text-neutral-content">Icon</p>
@@ -102,13 +107,15 @@ export default function AddCategory() {
         </ImageUploading>
       </div>
 
-      <div className="form_group mt-2">
-        <p className="text-neutral-content">Category name</p>
-        <input type="text" name="name" />
-      </div>
-      <div className="form_group mt-2">
-        <p className="text-neutral-content">Category Order</p>
-        <input type="number" defaultValue={orderNum} name="order" />
+      <div className="grid sm:grid-cols-2 gap-4">
+        <div className="mt-2">
+          <label className="text-neutral-content">Category name</label>
+          <input type="text" name="name" />
+        </div>
+        <div className="mt-2">
+          <label className="text-neutral-content">Category Order</label>
+          <input type="number" defaultValue={orderNum} name="order" />
+        </div>
       </div>
 
       <div className="mt-4">

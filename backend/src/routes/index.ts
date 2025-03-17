@@ -3,8 +3,7 @@ const router = Router();
 import { authRoute } from '../modules/auth/authRoute';
 import { userRoute } from '../modules/user/userRoute';
 import { adminRoute } from '../modules/admin/adminRoute';
-import { carRoute } from '../modules/car/carRoute';
-import { orderRoute } from '../modules/order/orderRoute';
+import { CategoryRoute } from '../modules/category/categoryRoute';
 
 const moduleRoutes = [
   {
@@ -20,12 +19,8 @@ const moduleRoutes = [
     route: adminRoute,
   },
   {
-    path: '/car',
-    route: carRoute,
-  },
-  {
-    path: '/order',
-    route: orderRoute,
+    path: '/category',
+    route: CategoryRoute,
   },
 ];
 

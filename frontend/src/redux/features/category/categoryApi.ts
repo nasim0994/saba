@@ -13,6 +13,7 @@ export const categoryApi = baseApi.injectEndpoints({
       query: (id) => ({
         url: `/category/${id}`,
       }),
+      providesTags: ["category"],
     }),
 
     addCategory: builder.mutation({
