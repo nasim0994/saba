@@ -1,11 +1,9 @@
 import AdminLayout from "@/layouts/AdminLayout";
 import AdminProtectedRoute from "@/layouts/AdminProtectedRoute";
+import AddCategory from "@/pages/admin/category/categories/AddCategory";
+import AllCategories from "@/pages/admin/category/categories/AllCategories";
+import EditCategory from "@/pages/admin/category/categories/EditCategory";
 import Dashboard from "@/pages/admin/Dashboard";
-import AllOrders from "@/pages/admin/orders/AllOrders";
-import OrderDetails from "@/pages/admin/orders/OrderDetails";
-import AddProduct from "@/pages/admin/product/AddProduct";
-import AllProducts from "@/pages/admin/product/AllProducts";
-import EditProduct from "@/pages/admin/product/EditProduct";
 
 export const adminRoutes = {
   path: "/admin",
@@ -19,25 +17,19 @@ export const adminRoutes = {
       path: "dashboard",
       element: <Dashboard />,
     },
+
+    // category
     {
-      path: "car/all",
-      element: <AllProducts />,
+      path: "/admin/product/category/all",
+      element: <AllCategories />,
     },
     {
-      path: "car/add",
-      element: <AddProduct />,
+      path: "/admin/product/category/add",
+      element: <AddCategory />,
     },
     {
-      path: "car/edit/:id",
-      element: <EditProduct />,
-    },
-    {
-      path: "order/all",
-      element: <AllOrders />,
-    },
-    {
-      path: "order/:id",
-      element: <OrderDetails />,
+      path: "/admin/product/category/edit/:id",
+      element: <EditCategory />,
     },
   ],
 };
