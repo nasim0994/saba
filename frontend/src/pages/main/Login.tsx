@@ -28,11 +28,11 @@ export default function Login() {
     e.preventDefault();
 
     const form = e.target as HTMLFormElement;
-    const email = form.email.value;
+    const phone = form.phone.value;
     const password = form.password.value;
 
     const loginInfo = {
-      email,
+      phone,
       password,
     };
 
@@ -40,36 +40,41 @@ export default function Login() {
 
     if (res?.data?.success) {
       const user = verifyToken(res?.data?.data?.accessToken) as TUser;
-      console.log(res, user);
+
       dispatch(userLoggedIn({ user, token: res?.data?.data?.accessToken }));
       toast.success("Login successful");
       setError("");
     }
     if (res?.error) {
       setError(res?.error?.data?.message);
+      console.log(res);
     }
   };
 
   return (
     <div className="flex justify-center items-center min-h-[80vh] w-full">
-      <div>
-        <form onSubmit={handleLogin} className="w-[90%] sm:w-[350px]">
-          <div>
-            <h2 className="text-2xl font-medium text-center">Welcome Back</h2>
-          </div>
-          <br />
+      <div className="border rounded-xl p-6">
+        <div className="text-center">
+          <h2 className="text-lg font-medium">Welcome Back</h2>
+          <p className="text-[13px] text-neutral-content">
+            Enter your phone and password to login
+          </p>
+        </div>
+
+        <form onSubmit={handleLogin} className="mt-6 w-[90%] sm:w-[350px]">
           <div className="mb-5">
-            <label htmlFor="email" className="block mb-2 text-sm font-medium">
-              Email
+            <label htmlFor="phone" className="block mb-2 text-sm font-medium">
+              Phone
             </label>
             <input
-              type="email"
-              id="email"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-              placeholder="example@gmail.com"
+              type="phone"
+              id="phone"
+              className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+              placeholder="Phone"
               required
             />
           </div>
+
           <div className="mb-1">
             <label
               htmlFor="password"
@@ -80,7 +85,7 @@ export default function Login() {
             <input
               type="password"
               id="password"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 "
+              className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 "
               placeholder="********"
               required
             />
@@ -88,18 +93,17 @@ export default function Login() {
 
           {error && <p className="text-red-500 text-xs">{error}</p>}
 
-          <br />
           <button
             type="submit"
             disabled={isLoading}
-            className="text-base-100 bg-primary font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+            className="mt-4 text-base-100 bg-primary font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center"
           >
-            {isLoading ? "Loading..." : "Submit"}
+            {isLoading ? "Loading..." : "Login"}
           </button>
         </form>
 
-        <div className="border-t border-neutral/20 mt-6 pt-4 text-center">
-          <p className="text-sm text-neutral/70">
+        <div className="border-t border-neutral/20 mt-6 pt-4 text-center ">
+          <p className="text-[13px] text-neutral/70">
             No have any account?
             <Link
               to="/register"

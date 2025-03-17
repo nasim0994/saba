@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
-import {
-  MdOutlineKeyboardArrowDown,
-  MdOutlineKeyboardArrowRight,
-} from "react-icons/md";
 import { ISidebarSubItem } from "@/interface/sidebarInterface";
+import { useEffect, useState } from "react";
+import {
+  MdOutlineKeyboardArrowRight,
+  MdOutlineKeyboardArrowDown,
+} from "react-icons/md";
+import { NavLink, useLocation } from "react-router-dom";
 
 export default function SidebarSubItems({
   subItems,
@@ -12,14 +12,27 @@ export default function SidebarSubItems({
   subItems: ISidebarSubItem;
 }) {
   const [subDropdown, setSubDropdown] = useState(false);
+  const [active, setActive] = useState(false);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (pathname.includes(subItems?.title.toLowerCase().split(" ").join("-"))) {
+      setActive(true);
+      setSubDropdown(true);
+    } else {
+      setActive(false);
+      setSubDropdown(false);
+    }
+  }, [pathname, subItems?.title]);
 
   if (subItems?.subSubMenu) {
     return (
       <li>
-        <button onClick={() => setSubDropdown(!subDropdown)}>
-          <div className="flex items-center gap-1.5">
-            {subItems.icon} {subItems.title}
-          </div>
+        <button
+          className={active ? "active" : ""}
+          onClick={() => setSubDropdown(!subDropdown)}
+        >
+          <div className="flex items-center gap-1.5">{subItems.title}</div>
 
           {subDropdown ? (
             <span>
@@ -36,7 +49,7 @@ export default function SidebarSubItems({
           <ul>
             {subItems?.subSubMenu?.map((item, i) => (
               <li key={i}>
-                <NavLink to={item.path || "#"}>{item.title}</NavLink>
+                <NavLink to={item.path}>{item.title}</NavLink>
               </li>
             ))}
           </ul>
@@ -46,7 +59,7 @@ export default function SidebarSubItems({
   } else {
     return (
       <li>
-        <NavLink to={subItems?.path || "#"}>
+        <NavLink to={subItems?.path || ""}>
           <h6>{subItems.title}</h6>
         </NavLink>
       </li>

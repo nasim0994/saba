@@ -17,7 +17,9 @@ export const createUserService = async (data: IUser) => {
 
 export const loginUserService = async (payload: ILoginUser) => {
   // checking if the user is exist
-  const user = await User.findOne({ phone: payload?.phone });
+  const user = await User.findOne({ phone: payload?.phone }).select(
+    '+password',
+  );
 
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');
@@ -32,6 +34,7 @@ export const loginUserService = async (payload: ILoginUser) => {
 
   //checking if the password is correct
   const isMatch = await bcrypt.compare(payload?.password, user?.password);
+
   if (!isMatch)
     throw new AppError(httpStatus.FORBIDDEN, 'Password do not matched');
 

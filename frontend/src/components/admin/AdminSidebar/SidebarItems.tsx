@@ -1,32 +1,50 @@
-import { useState } from "react";
-import {
-  MdOutlineKeyboardArrowDown,
-  MdOutlineKeyboardArrowRight,
-} from "react-icons/md";
-import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
 import SidebarSubItems from "./SidebarSubItems";
-import { ISidebarItem } from "@/interface/sidebarInterface";
+import {
+  MdOutlineKeyboardArrowRight,
+  MdOutlineKeyboardArrowDown,
+} from "react-icons/md";
+import { NavLink, useLocation } from "react-router-dom";
+import { ISidebarMenu } from "@/interface/sidebarInterface";
 
-export default function SidebarItems({ item }: { item: ISidebarItem }) {
+export default function SidebarItems({ item }: { item: ISidebarMenu }) {
   const [dropdown, setDropdown] = useState(false);
+
+  const [active, setActive] = useState(false);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (pathname.includes(item?.title.toLowerCase().split(" ").join("-"))) {
+      setActive(true);
+      setDropdown(true);
+    } else {
+      setActive(false);
+      setDropdown(false);
+    }
+  }, [pathname, item?.title]);
 
   if (item?.subMenu) {
     return (
       <li>
-        <button onClick={() => setDropdown(!dropdown)}>
-          <div className="flex items-center gap-1.5">
-            {item.icon} {item.title}
-          </div>
+        <button
+          className={active ? "active" : ""}
+          onClick={() => setDropdown(!dropdown)}
+        >
+          <i>{item.icon}</i>
 
-          {dropdown ? (
-            <span>
-              <MdOutlineKeyboardArrowDown />
-            </span>
-          ) : (
-            <span>
-              <MdOutlineKeyboardArrowRight />
-            </span>
-          )}
+          <div className="flex items-center justify-between gap-1.5">
+            <h3>{item.title}</h3>
+
+            {dropdown ? (
+              <span>
+                <MdOutlineKeyboardArrowDown />
+              </span>
+            ) : (
+              <span>
+                <MdOutlineKeyboardArrowRight />
+              </span>
+            )}
+          </div>
         </button>
 
         <nav className={`dropdown ${dropdown && "dropdown_show"}`}>
@@ -41,9 +59,9 @@ export default function SidebarItems({ item }: { item: ISidebarItem }) {
   } else {
     return (
       <li>
-        <NavLink to={item?.path || "#"}>
-          {item?.icon}
-          {item?.title}
+        <NavLink to={item?.path || ""}>
+          <i>{item.icon}</i>
+          <h3>{item.title}</h3>
         </NavLink>
       </li>
     );

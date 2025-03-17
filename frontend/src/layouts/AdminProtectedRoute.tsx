@@ -19,7 +19,8 @@ export default function AdminProtectedRoute({ children }: TProtectedRoute) {
   if (!token)
     return <Navigate to="/login" state={{ from: location }} replace />;
 
-  if (user?.role !== "admin" || !token) dispatch(userLogout());
+  if ((user?.role !== "admin" && user?.role !== "superAdmin") || !token)
+    dispatch(userLogout());
 
   return children;
 }
